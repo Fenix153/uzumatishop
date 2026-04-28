@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пати Узумати — Discord Донаты</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="logo">
+        <img src="assets/logo.png" alt="" class="logo__img" onerror="this.style.display='none'" />
+        <span class="logo__text">Пати Узумати</span>
+      </div>
+      <nav class="nav">
+        <a href="#shop" class="nav__link">Магазин</a>
+        <a href="#reviews" class="nav__link">Отзывы</a>
+        <a href="#how" class="nav__link">Как купить</a>
+        <a href="#contact" class="nav__link">Контакты</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn">
+        🛒 <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="container hero__inner">
+      <div class="hero__badge">✨ Discord Донаты</div>
+      <h1 class="hero__title">Пати Узумати</h1>
+      <p class="hero__sub">Лучшие донаты для твоего Discord сервера.<br/>Быстро, надёжно, выгодно.</p>
+      <div class="hero__stats">
+        <div class="hero__stat"><span class="hero__stat-num" id="statOrders">247</span><span class="hero__stat-label">заказов выполнено</span></div>
+        <div class="hero__stat-sep"></div>
+        <div class="hero__stat"><span class="hero__stat-num" id="statOnline">12</span><span class="hero__stat-label">онлайн сейчас</span></div>
+        <div class="hero__stat-sep"></div>
+        <div class="hero__stat"><span class="hero__stat-num">⭐ 4.9</span><span class="hero__stat-label">рейтинг</span></div>
+      </div>
+      <a href="#shop" class="btn btn--primary">Перейти в магазин</a>
+    </div>
+  </section>
+
+  <!-- SALE BANNER (таймер скидки) -->
+  <div class="sale-banner" id="saleBanner">
+    <div class="container sale-banner__inner">
+      <span class="sale-banner__fire">🔥</span>
+      <span class="sale-banner__text">Акция! Скидка <strong>15%</strong> на все товары — только сегодня!</span>
+      <div class="sale-timer" id="saleTimer">
+        <div class="sale-timer__block"><span id="timerH">00</span><small>ч</small></div>
+        <div class="sale-timer__sep">:</div>
+        <div class="sale-timer__block"><span id="timerM">00</span><small>м</small></div>
+        <div class="sale-timer__sep">:</div>
+        <div class="sale-timer__block"><span id="timerS">00</span><small>с</small></div>
+      </div>
+      <button class="sale-banner__close" id="saleBannerClose">✕</button>
+    </div>
+  </div>
+
+  <!-- КАК КУПИТЬ -->
+  <section class="how" id="how">
+    <div class="container">
+      <h2 class="section-title">Как купить?</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step__icon">🛒</div>
+          <h3>1. Выбери товар</h3>
+          <p>Добавь нужный донат в корзину</p>
+        </div>
+        <div class="step">
+          <div class="step__icon">💳</div>
+          <h3>2. Оплати</h3>
+          <p>ЮMoney, карта — быстро и безопасно</p>
+        </div>
+        <div class="step">
+          <div class="step__icon">⚡</div>
+          <h3>3. Получи</h3>
+          <p>Донат выдаётся после подтверждения</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- МАГАЗИН -->
+  <section class="shop" id="shop">
+    <div class="container">
+      <h2 class="section-title">Магазин</h2>
+      <!-- Фильтры -->
+      <div class="shop-filters" id="shopFilters">
+        <button class="filter-btn active" data-cat="all">Все</button>
+      </div>
+      <!-- Промокод -->
+      <div class="promo-row">
+        <div class="promo-box">
+          <input type="text" class="form-input promo-input" id="promoInput" placeholder="Промокод..." />
+          <button class="btn btn--secondary btn--sm" id="promoApplyBtn">Применить</button>
+          <span class="promo-status" id="promoStatus"></span>
+        </div>
+      </div>
+      <div class="products" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ОТЗЫВЫ -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <h2 class="section-title">Отзывы покупателей</h2>
+      <div class="reviews-grid" id="reviewsGrid"></div>
+      <div style="text-align:center;margin-top:2rem">
+        <button class="btn btn--secondary" id="addReviewBtn">✍️ Оставить отзыв</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ -->
+  <section class="contact" id="contact">
+    <div class="container contact__inner">
+      <h2 class="section-title">Контакты</h2>
+      <p class="contact__text">Есть вопросы? Напиши нам:</p>
+      <div class="contact__links">
+        <a href="#" class="contact__btn contact__btn--tg" id="tgLink" target="_blank">📨 Telegram</a>
+        <a href="#" class="contact__btn contact__btn--dc" id="dcLink" target="_blank">💬 Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Пати Узумати &nbsp;·&nbsp;
+        <span class="footer__admin-link" id="footerAdminLink">Войти как администратор</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- КОРЗИНА -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart" id="cartSidebar">
+    <div class="cart__header">
+      <h3>🛒 Корзина</h3>
+      <button class="cart__close" id="cartClose">✕</button>
+    </div>
+    <div class="cart__items" id="cartItems"><p class="cart__empty">Корзина пуста</p></div>
+    <div class="cart__footer" id="cartFooter" style="display:none">
+      <div class="cart__promo-applied" id="cartPromoApplied" style="display:none">
+        🎉 Промокод применён: <strong id="cartPromoName"></strong> (−<span id="cartPromoVal"></span>%)
+      </div>
+      <div class="cart__total">Итого: <strong id="cartTotal">0 ₽</strong></div>
+      <button class="btn btn--primary btn--full" id="checkoutBtn">Оформить заказ</button>
+    </div>
+  </aside>
+
+  <!-- МОДАЛКА ОФОРМЛЕНИЯ -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal__close" id="modalClose">✕</button>
+      <h3 class="modal__title">📋 Оформление заказа</h3>
+      <div class="modal__body">
+        <label class="form-label">Ваш Discord никнейм *</label>
+        <input type="text" class="form-input" id="discordNick" placeholder="Например: Fenix#1234" />
+        <label class="form-label">Email (для чека)</label>
+        <input type="email" class="form-input" id="userEmail" placeholder="your@email.com" />
+        <div class="order-summary" id="orderSummary"></div>
+        <div class="order-total">Итого: <strong id="modalTotal">0 ₽</strong></div>
+        <button class="btn btn--primary btn--full" id="payBtn">💳 Оплатить через ЮMoney</button>
+        <p class="modal__note" id="modalNote">После оплаты донат будет выдан администратором.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА ОТЗЫВА -->
+  <div class="modal-overlay" id="reviewOverlay">
+    <div class="modal modal--sm">
+      <button class="modal__close" id="reviewClose">✕</button>
+      <h3 class="modal__title">✍️ Оставить отзыв</h3>
+      <div class="modal__body">
+        <label class="form-label">Ваш Discord ник</label>
+        <input type="text" class="form-input" id="reviewNick" placeholder="Fenix#1234" />
+        <label class="form-label">Оценка</label>
+        <div class="star-picker" id="starPicker">
+          <span class="star" data-v="1">★</span>
+          <span class="star" data-v="2">★</span>
+          <span class="star" data-v="3">★</span>
+          <span class="star" data-v="4">★</span>
+          <span class="star" data-v="5">★</span>
+        </div>
+        <label class="form-label">Текст отзыва</label>
+        <textarea class="form-input form-textarea" id="reviewText" placeholder="Всё отлично, быстро выдали..."></textarea>
+        <button class="btn btn--primary btn--full" id="reviewSubmitBtn" style="margin-top:1rem">Отправить отзыв</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВХОД В АДМИНКУ -->
+  <div class="modal-overlay" id="loginOverlay">
+    <div class="modal modal--sm">
+      <button class="modal__close" id="loginClose">✕</button>
+      <h3 class="modal__title">🔐 Вход для администратора</h3>
+      <div class="modal__body">
+        <label class="form-label">Пароль</label>
+        <input type="password" class="form-input" id="adminPassInput" placeholder="Введи пароль..." />
+        <button class="btn btn--primary btn--full" id="loginBtn" style="margin-top:1rem">Войти</button>
+        <p id="loginError" class="login-error" style="display:none">❌ Неверный пароль</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПАНЕЛЬ АДМИНИСТРАТОРА -->
+  <div class="admin-overlay" id="adminOverlay" style="display:none">
+    <div class="admin-panel">
+      <div class="admin-panel__header">
+        <div class="admin-panel__title">
+          <span class="admin-panel__crown">👑</span>
+          <span>Панель администратора</span>
+          <span class="admin-panel__owner">Fenix A1r2t3e4m5art14</span>
+        </div>
+        <button class="admin-panel__close" id="adminClose">✕ Выйти</button>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="products">📦 Товары</button>
+        <button class="admin-tab" data-tab="orders">📋 Заказы</button>
+        <button class="admin-tab" data-tab="promos">🎁 Промокоды</button>
+        <button class="admin-tab" data-tab="reviews-admin">⭐ Отзывы</button>
+        <button class="admin-tab" data-tab="settings">⚙️ Настройки</button>
+      </div>
+
+      <!-- ВК: ТОВАРЫ -->
+      <div class="admin-tab-content active" id="tab-products">
+        <div class="admin-section">
+          <h3>Добавить товар</h3>
+          <div class="admin-form-grid">
+            <div class="admin-form-col">
+              <label class="form-label">Название *</label>
+              <input type="text" class="form-input" id="adminName" placeholder="Discord Nitro Basic" />
+              <label class="form-label">Описание</label>
+              <textarea class="form-input form-textarea" id="adminDesc" placeholder="Что входит в донат..."></textarea>
+              <label class="form-label">Цена (₽) *</label>
+              <input type="number" class="form-input" id="adminPrice" placeholder="299" min="1" />
+            </div>
+            <div class="admin-form-col">
+              <label class="form-label">Ссылка на фото (URL)</label>
+              <input type="text" class="form-input" id="adminImg" placeholder="https://i.imgur.com/..." />
+              <label class="form-label">Категория</label>
+              <input type="text" class="form-input" id="adminCategory" placeholder="Nitro / Буст / Роль" />
+              <label class="form-label">Эмодзи</label>
+              <input type="text" class="form-input" id="adminEmoji" placeholder="💎" maxlength="4" />
+              <label class="form-label">Значок</label>
+              <input type="text" class="form-input" id="adminBadge" placeholder="Хит / Скидка / Новинка" />
+            </div>
+          </div>
+          <button class="btn btn--primary" id="adminAddBtn">➕ Добавить товар</button>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section__head">
+            <h3>Список товаров <span class="admin-count" id="productsCount">0</span></h3>
+            <div class="admin-section__actions">
+              <button class="btn btn--outline btn--sm" id="exportBtn">📤 Экспорт</button>
+              <label class="btn btn--outline btn--sm" for="importFile">📥 Импорт</label>
+              <input type="file" id="importFile" accept=".json" style="display:none" />
+            </div>
+          </div>
+          <div id="adminProductList" class="admin-product-list"></div>
+        </div>
+      </div>
+
+      <!-- ВК: ЗАКАЗЫ -->
+      <div class="admin-tab-content" id="tab-orders">
+        <div class="admin-section">
+          <div class="admin-section__head">
+            <h3>Заказы <span class="admin-count" id="ordersCount">0</span></h3>
+            <button class="btn btn--outline btn--sm" id="clearOrdersBtn">🗑 Очистить выданные</button>
+          </div>
+          <p class="admin-hint">Отмечай заказы как выданные после того, как выдал донат/роль.</p>
+          <div id="ordersList" class="orders-list"></div>
+        </div>
+      </div>
+
+      <!-- ВК: ПРОМОКОДЫ -->
+      <div class="admin-tab-content" id="tab-promos">
+        <div class="admin-section">
+          <h3>Создать промокод</h3>
+          <label class="form-label">Код (латиница)</label>
+          <input type="text" class="form-input" id="promoCode" placeholder="SALE20" style="text-transform:uppercase" />
+          <label class="form-label">Скидка (%)</label>
+          <input type="number" class="form-input" id="promoDiscount" placeholder="20" min="1" max="99" />
+          <button class="btn btn--primary" id="addPromoBtn" style="margin-top:1rem">➕ Добавить промокод</button>
+        </div>
+        <div class="admin-section">
+          <h3>Активные промокоды</h3>
+          <div id="promoList" class="admin-product-list"></div>
+        </div>
+      </div>
+
+      <!-- ВК: ОТЗЫВЫ -->
+      <div class="admin-tab-content" id="tab-reviews-admin">
+        <div class="admin-section">
+          <div class="admin-section__head">
+            <h3>Отзывы <span class="admin-count" id="reviewsCount">0</span></h3>
+            <button class="btn btn--outline btn--sm" id="clearReviewsBtn">🗑 Удалить все</button>
+          </div>
+          <p class="admin-hint">Одобряй или удаляй отзывы покупателей.</p>
+          <div id="adminReviewsList" class="orders-list"></div>
+        </div>
+      </div>
+
+      <!-- ВК: НАСТРОЙКИ -->
+      <div class="admin-tab-content" id="tab-settings">
+        <div class="admin-section">
+          <h3>Оплата</h3>
+          <label class="form-label">Номер кошелька ЮMoney</label>
+          <input type="text" class="form-input" id="adminYoomoney" placeholder="4100118XXXXXXXXX" />
+          <p class="admin-hint">Деньги приходят автоматически. Работает в России.</p>
+        </div>
+        <div class="admin-section">
+          <h3>Контакты</h3>
+          <label class="form-label">Telegram</label>
+          <input type="text" class="form-input" id="adminTelegram" placeholder="@username" />
+          <label class="form-label">Discord Invite</label>
+          <input type="text" class="form-input" id="adminDiscord" placeholder="https://discord.gg/..." />
+        </div>
+        <div class="admin-section">
+          <h3>Акция (баннер)</h3>
+          <label class="form-label">Текст акции</label>
+          <input type="text" class="form-input" id="adminSaleText" placeholder="Скидка 15% на все товары — только сегодня!" />
+          <label class="form-label">Скидка акции (%)</label>
+          <input type="number" class="form-input" id="adminSaleDiscount" placeholder="15" min="0" max="99" />
+          <label class="form-label">Показывать баннер</label>
+          <select class="form-input" id="adminSaleShow">
+            <option value="1">Да</option>
+            <option value="0">Нет</option>
+          </select>
+        </div>
+        <div class="admin-section">
+          <h3>Безопасность</h3>
+          <label class="form-label">Новый пароль администратора</label>
+          <input type="password" class="form-input" id="adminNewPass" placeholder="Оставь пустым, чтобы не менять" />
+
+          <h3>🤖 Подключение бота (автовыдача ролей)</h3>
+          <label class="form-label">URL бота (из Replit — кнопка "Open in new tab")</label>
+          <input type="text" class="form-input" id="adminBotApiUrl" placeholder="https://твой-бот.replit.app" />
+          <label class="form-label">Секретный ключ бота (API_SECRET из Replit Secrets)</label>
+          <input type="text" class="form-input" id="adminBotApiSecret" placeholder="supersecret123" />
+          <p class="admin-hint">После заполнения — заказы будут автоматически отправляться боту. Покупатель пишет /claim и получает роль сам.</p>
+        </div>
+        <button class="btn btn--primary" id="adminSaveSettings">💾 Сохранить все настройки</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА РЕДАКТИРОВАНИЯ ТОВАРА -->
+  <div class="modal-overlay" id="editOverlay">
+    <div class="modal">
+      <button class="modal__close" id="editClose">✕</button>
+      <h3 class="modal__title">✏️ Редактировать товар</h3>
+      <div class="modal__body">
+        <input type="hidden" id="editId" />
+        <label class="form-label">Название *</label>
+        <input type="text" class="form-input" id="editName" />
+        <label class="form-label">Описание</label>
+        <textarea class="form-input form-textarea" id="editDesc"></textarea>
+        <label class="form-label">Цена (₽) *</label>
+        <input type="number" class="form-input" id="editPrice" min="1" />
+        <label class="form-label">Ссылка на фото</label>
+        <input type="text" class="form-input" id="editImg" />
+        <label class="form-label">Категория</label>
+        <input type="text" class="form-input" id="editCategory" />
+        <label class="form-label">Эмодзи</label>
+        <input type="text" class="form-input" id="editEmoji" maxlength="4" />
+        <label class="form-label">Значок</label>
+        <input type="text" class="form-input" id="editBadge" />
+        <button class="btn btn--primary btn--full" id="editSaveBtn" style="margin-top:1.25rem">💾 Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА "ЗАКАЗ ОФОРМЛЕН" -->
+  <div class="modal-overlay" id="successOverlay">
+    <div class="modal modal--sm">
+      <button class="modal__close" id="successClose">✕</button>
+      <div class="success-modal">
+        <div class="success-modal__icon">🎉</div>
+        <h3 class="success-modal__title">Заказ оформлен!</h3>
+        <p class="success-modal__sub">Твой секретный код для получения роли:</p>
+        <div class="success-modal__id" id="successOrderId" title="Нажми чтобы скопировать">—</div>
+        <div class="success-modal__warn" id="successWarn" style="display:none">
+          ⚠️ Сохрани этот код! Он показывается только один раз.<br/>Без него роль не получить.
+        </div>
+        <p class="success-modal__hint">Зайди на наш Discord сервер и напиши боту:</p>
+        <div class="success-modal__cmd">/claim <span id="successOrderIdCmd">...</span></div>
+        <button class="btn btn--primary btn--full" id="successDcBtn">💬 Открыть Discord</button>
+        <p class="success-modal__note" id="successNote"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА КАСТОМНОЙ РОЛИ -->
+  <div class="modal-overlay" id="customRoleOverlay">
+    <div class="modal">
+      <button class="modal__close" id="customRoleClose">✕</button>
+      <h3 class="modal__title">🎨 Настрой свою роль</h3>
+      <div class="modal__body">
+        <input type="hidden" id="customRoleProductId" />
+
+        <label class="form-label">Название роли *</label>
+        <input type="text" class="form-input" id="customRoleName"
+               placeholder="Например: ⚡ Молния, 🌙 Ночной волк..." maxlength="32" />
+        <div class="char-counter"><span id="customRoleNameLen">0</span>/32</div>
+
+        <label class="form-label">Цвет роли</label>
+
+        <!-- Превью -->
+        <div class="role-preview">
+          <span class="role-preview__dot" id="rolePreviewDot"></span>
+          <span class="role-preview__name" id="rolePreviewName">Твоя роль</span>
+        </div>
+
+        <!-- Палитра популярных цветов -->
+        <div class="color-palette" id="colorPalette">
+          <button class="color-swatch" data-color="#e74c3c" style="background:#e74c3c" title="Красный"></button>
+          <button class="color-swatch" data-color="#e67e22" style="background:#e67e22" title="Оранжевый"></button>
+          <button class="color-swatch" data-color="#f1c40f" style="background:#f1c40f" title="Жёлтый"></button>
+          <button class="color-swatch" data-color="#2ecc71" style="background:#2ecc71" title="Зелёный"></button>
+          <button class="color-swatch" data-color="#1abc9c" style="background:#1abc9c" title="Бирюзовый"></button>
+          <button class="color-swatch" data-color="#3498db" style="background:#3498db" title="Синий"></button>
+          <button class="color-swatch" data-color="#9b59b6" style="background:#9b59b6" title="Фиолетовый"></button>
+          <button class="color-swatch" data-color="#e91e8c" style="background:#e91e8c" title="Розовый"></button>
+          <button class="color-swatch" data-color="#ff6b6b" style="background:#ff6b6b" title="Коралловый"></button>
+          <button class="color-swatch" data-color="#ffd93d" style="background:#ffd93d" title="Золотой"></button>
+          <button class="color-swatch" data-color="#6bcb77" style="background:#6bcb77" title="Лаймовый"></button>
+          <button class="color-swatch" data-color="#4d96ff" style="background:#4d96ff" title="Голубой"></button>
+          <button class="color-swatch" data-color="#c77dff" style="background:#c77dff" title="Лавандовый"></button>
+          <button class="color-swatch" data-color="#ff9a3c" style="background:#ff9a3c" title="Янтарный"></button>
+          <button class="color-swatch" data-color="#00d4ff" style="background:#00d4ff" title="Циановый"></button>
+          <button class="color-swatch" data-color="#ff4757" style="background:#ff4757" title="Алый"></button>
+          <button class="color-swatch" data-color="#ffffff" style="background:#ffffff;border:1px solid #444" title="Белый"></button>
+          <button class="color-swatch" data-color="#99aab5" style="background:#99aab5" title="Серый"></button>
+        </div>
+
+        <!-- HEX ввод -->
+        <div class="hex-row">
+          <label class="form-label" style="margin-top:0">Или введи HEX цвет:</label>
+          <div class="hex-input-wrap">
+            <span class="hex-hash">#</span>
+            <input type="text" class="form-input hex-input" id="hexInput"
+                   placeholder="5865f2" maxlength="6" />
+            <input type="color" class="color-native" id="colorNative" value="#5865f2" title="Открыть пикер" />
+          </div>
+        </div>
+
+        <button class="btn btn--primary btn--full" id="customRoleAddBtn" style="margin-top:1.25rem">
+          🛒 Добавить в корзину
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВСПЛЫВАШКА "Кто-то купил" -->
+  <div class="popup-buy" id="popupBuy">
+    <div class="popup-buy__avatar" id="popupAvatar">👤</div>
+    <div class="popup-buy__text">
+      <strong id="popupName">Пользователь</strong> только что купил<br/>
+      <span id="popupProduct">Discord Nitro</span>
+    </div>
+  </div>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
